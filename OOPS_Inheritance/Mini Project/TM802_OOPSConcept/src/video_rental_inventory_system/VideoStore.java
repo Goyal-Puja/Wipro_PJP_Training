@@ -1,0 +1,79 @@
+package video_rental_inventory_system;
+
+public class VideoStore {
+	Video[] store;
+	
+	int checkVideo(String name) {
+		int flag = 0;
+		for(Video video : store) {
+			if(video.getName().equals(name))
+				flag = 1;
+		}
+		return flag;
+	}
+	
+	void addVideo(String name) {
+		int size;
+		Video video = new Video(name);
+		try {
+		size = store.length;
+		}
+		catch(Exception e) {
+			size = 0;
+		}
+		Video[] newStore = new Video[size+1];
+		newStore[size] = video;
+		store = newStore;
+	}
+	
+	void doCheckOut(String name) {
+		if(store == null || store.length == 0) {
+			System.out.println("Store is empty");
+			return;
+		}
+		for(Video video : store) {
+			if(video.getName().equals(name)) {
+				video.doCheckOut();
+			}
+		}
+	}
+	void doReturn(String name) {
+		if(store == null || store.length == 0) {
+			System.out.println("Store is empty");
+			return;
+		}
+		for(Video video : store) {
+			if(video.getName().equals(name)) {
+				video.doReturn();
+			}
+		}
+	}
+	
+	void receiveRating(String name,int rating) {
+		if(store == null || store.length == 0) {
+			System.out.println("Store is empty");
+			return;
+			
+		}
+		for(Video video : store) {
+			if(video.getName().equals(name)) {
+				video.receiveRating(rating);
+				
+				
+			}
+		}
+	}
+	void listInventory() {
+		if(store == null || store.length == 0) {
+			System.out.println("Store is empty");
+			return;
+		}
+		for(Video video : store) {
+			System.out.print("---------------------------------------------------------------------------");
+			System.out.printf("\n\t%-20s\t|\t%-10s\t|\t%-15s\n", "Video Name","Checkout Status","Rating");
+			System.out.printf("\n\t%-20s\t|\t%-10s\t|\t%-15s\n", video.getName(), video.getCheckOut(),video.getRating());
+			System.out.println("---------------------------------------------------------------------------");
+		}
+	}
+      
+}
